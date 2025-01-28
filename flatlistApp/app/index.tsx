@@ -8,6 +8,7 @@ import {
 import colors from "../styles/colors";
 import defaultStyles from "../styles/defaultStyles";
 import { useState } from "react";
+import ListItemSeparator from "@/components/ListItemSseparator";
 
 export default function Index() {
   type dataType = {
@@ -39,6 +40,9 @@ export default function Index() {
             data={DATA}
             extraData={selectedId}
             keyExtractor={(item: dataType) => item.id}
+            ItemSeparatorComponent={() => (
+              <ListItemSeparator color={colors.text.dark} />
+            )}
             renderItem={({ item }) => (
               <TouchableOpacity onPress={() => selectedList(item)}>
                 <View
