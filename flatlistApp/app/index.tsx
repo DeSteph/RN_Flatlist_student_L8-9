@@ -7,23 +7,26 @@ import {
 } from "react-native";
 import colors from "../styles/colors";
 import defaultStyles from "../styles/defaultStyles";
+import { useState } from "react";
 
 export default function Index() {
-
-  type datatype = {
+  type dataType = {
     id: string;
     title: string;
   };
 
-  const Data: datatype[] = [
-    {id: "1", title: "First Item"},
-    {id: "2", title: "Second Item"},
-    {id: "3", title: "Third Item"},
-  ]
+  const DATA: dataType[] = [
+    { id: "1", title: "First Item" },
+    { id: "2", title: "Second Item" },
+    { id: "3", title: "Third Item" },
+  ];
 
-  const selectedList = (item: datatype)=>{
+  const [selectedId, setSelectedId] = useState<string>("1");
+
+  const selectedList = (item: dataType) => {
     console.log(item.title);
-  }
+    setSelectedId(item.id);
+  };
 
   return (
     <View style={defaultStyles.container}>
@@ -32,7 +35,40 @@ export default function Index() {
       </View>
       <View style={[defaultStyles.textContainer, { flex: 1 }]}>
         <View style={styles.flatlist}>
-          <Text>This is where our list will go</Text>
+          <FlatList
+            data={DATA}
+            extraData={selectedId}
+            keyExtractor={(item: dataType) => item.id}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={() => selectedList(item)}>
+                <View
+                  style={[
+                    styles.titleContainer,
+                    {
+                      backgroundColor:
+                        item.id === selectedId
+                          ? colors.primary
+                          : colors.secondary,
+                    },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.titleText,
+                      {
+                        color:
+                          item.id === selectedId
+                            ? colors.text.light
+                            : colors.text.dark,
+                      },
+                    ]}
+                  >
+                    {item.title}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          ></FlatList>
         </View>
       </View>
     </View>
