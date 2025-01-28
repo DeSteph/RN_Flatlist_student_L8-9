@@ -8,7 +8,7 @@ import {
 import colors from "../styles/colors";
 import defaultStyles from "../styles/defaultStyles";
 import { useState } from "react";
-import ListItemSeparator from "@/components/ListItemSseparator";
+import ListItemSeparator from "@/components/ListItemSeparator";
 
 export default function Index() {
   type dataType = {
